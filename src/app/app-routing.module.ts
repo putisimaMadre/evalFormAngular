@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { TableComponent } from './table/table.component';
 
 const routes: Routes = [
-  {path:'table', component:TableComponent}
+  {path:'table', component:TableComponent},
+  {path:'', loadChildren: ()=> import('./alumno/alumno.module').then(m => m.AlumnoModule)}
 ];
 
 @NgModule({

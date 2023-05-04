@@ -1,0 +1,31 @@
+<p>alumnos works!</p>
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+        <!-- <tr>
+            <th rowspan="2">Name</th>
+            <th colspan="2">HR Information</th>
+            <th colspan="2">Acciones</th>
+        </tr> -->
+        <tr>
+            <th>Numero de Lista</th>
+            <th>Nombres</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Apellido Grado</th>
+            <th>Apellido Grupo</th>
+            <th>Apellido Turno</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let alumno of alumnos">
+            <td>{{alumno.numeroLista}}</td>
+            <td>{{alumno.nombres}}</td>
+            <td>{{alumno.apellidoP}}</td>
+            <td>{{alumno.apellidoM}}</td>
+            <td>{{alumno.grado}}</td>
+            <td>{{alumno.grupo}}</td>
+            <td>{{alumno.turno}}</td>
+        </tr>
+    </tbody>
+</table>

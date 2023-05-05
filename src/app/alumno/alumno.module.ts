@@ -6,6 +6,7 @@ import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { NewAComponent } from './pages/new-a/new-a.component';
 import { MaterialModule } from '../material/material.module';
 import { DataTablesModule } from "angular-datatables";
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { DataTablesModule } from "angular-datatables";
     AlumnoRoutingModule,
     MaterialModule,
     DataTablesModule,
+    ReactiveFormsModule
   ]
 })
 export class AlumnoModule { }

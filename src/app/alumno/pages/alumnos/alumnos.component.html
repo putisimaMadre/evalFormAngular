@@ -1,31 +1,53 @@
-<p>alumnos works!</p>
+<div class="grid">
+    <div class="col-10 col-offset-1">
+    <h1 class="mt-3">Alumnos</h1>
+    <mat-divider class="mt-5"></mat-divider>
+    </div>
 
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-    <thead>
-        <!-- <tr>
-            <th rowspan="2">Name</th>
-            <th colspan="2">HR Information</th>
-            <th colspan="2">Acciones</th>
-        </tr> -->
-        <tr>
-            <th>Numero de Lista</th>
-            <th>Nombres</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Apellido Grado</th>
-            <th>Apellido Grupo</th>
-            <th>Apellido Turno</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let alumno of alumnos">
-            <td>{{alumno.numeroLista}}</td>
-            <td>{{alumno.nombres}}</td>
-            <td>{{alumno.apellidoP}}</td>
-            <td>{{alumno.apellidoM}}</td>
-            <td>{{alumno.grado}}</td>
-            <td>{{alumno.grupo}}</td>
-            <td>{{alumno.turno}}</td>
-        </tr>
-    </tbody>
-</table>
+    <div class="col-10 col-offset-1">
+        <button mat-raised-button color="primary" (click)="openDialog()">Nuevo Alumno</button>
+        <mat-divider class="mt-5"></mat-divider>
+        <mat-card>
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+                <!-- <tr>
+                    <th rowspan="2">Name</th>
+                    <th colspan="2">HR Information</th>
+                    <th colspan="2">Acciones</th>
+                </tr> -->
+                <tr>
+                    <th>Id</th>
+                    <th>Numero de Lista</th>
+                    <th>Nombres</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Apellido Grado</th>
+                    <th>Apellido Grupo</th>
+                    <th>Apellido Turno</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let alumno of newAlumnos">
+                    <td>{{alumno.id}}</td>
+                    <td>{{alumno.numeroLista}}</td>
+                    <td>{{alumno.nombres}}</td>
+                    <td>{{alumno.apellidoP}}</td>
+                    <td>{{alumno.apellidoM}}</td>
+                    <td>{{alumno.grado}}</td>
+                    <td>{{alumno.grupo}}</td>
+                    <td>{{alumno.turno}}</td>
+                    <td>
+                        <div class="example-button-row">
+                            <button mat-raised-button color="primary">Modificar</button>
+                            <button mat-raised-button color="warn" (click)="modificacion()">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </mat-card>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="pruebaInput()">valores input</button>
+</div>

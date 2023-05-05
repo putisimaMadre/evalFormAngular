@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-10 col-offset-1">
-        <button mat-raised-button color="primary" (click)="openDialog()">Nuevo Alumno</button>
+        <button mat-raised-button color="primary" [routerLink]="['/newA']">Nuevo Alumno</button>
         <mat-divider class="mt-5"></mat-divider>
         <mat-card>
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let alumno of newAlumnos">
+                <tr *ngFor="let alumno of alumnos">
                     <td>{{alumno.id}}</td>
                     <td>{{alumno.numeroLista}}</td>
                     <td>{{alumno.nombres}}</td>
@@ -48,6 +48,4 @@
             </table>
         </mat-card>
     </div>
-
-    <button mat-raised-button color="primary" (click)="pruebaInput()">valores input</button>
 </div>

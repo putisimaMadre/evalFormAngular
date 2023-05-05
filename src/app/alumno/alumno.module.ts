@@ -6,20 +6,23 @@ import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { NewAComponent } from './pages/new-a/new-a.component';
 import { MaterialModule } from '../material/material.module';
 import { DataTablesModule } from "angular-datatables";
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlumnosInputComponent } from './pages/alumnos-input/alumnos-input.component';
 
 
 @NgModule({
   declarations: [
     AlumnosComponent,
-    NewAComponent
+    NewAComponent,
+    AlumnosInputComponent
   ],
   imports: [
     CommonModule,
     AlumnoRoutingModule,
     MaterialModule,
     DataTablesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AlumnoModule { }

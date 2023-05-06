@@ -5,16 +5,15 @@ import { AlumnoRoutingModule } from './alumno-routing.module';
 import { AlumnosComponent } from './pages/alumnos/alumnos.component';
 import { NewAComponent } from './pages/new-a/new-a.component';
 import { MaterialModule } from '../material/material.module';
-import { DataTablesModule } from "angular-datatables";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AlumnosInputComponent } from './pages/alumnos-input/alumnos-input.component';
+import { DataTablesModule } from "angular-datatables";
+import { HttpClientModule } from "@angular/common/http";
 
 
 @NgModule({
   declarations: [
     AlumnosComponent,
-    NewAComponent,
-    AlumnosInputComponent
+    NewAComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +21,10 @@ import { AlumnosInputComponent } from './pages/alumnos-input/alumnos-input.compo
     MaterialModule,
     DataTablesModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule,
+    HttpClientModule,
+    MaterialModule
   ]
 })
 export class AlumnoModule { }

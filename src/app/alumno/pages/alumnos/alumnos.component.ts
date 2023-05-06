@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild  } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-alumnos',
   templateUrl: './alumnos.component.html',
   styleUrls: ['./alumnos.component.css']
 })
-export class AlumnosComponent implements OnInit {
-  
+export class AlumnosComponent implements AfterViewInit, OnDestroy, OnInit  {
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
   alumnos?: Alumno[]
-
-  constructor(private alumnoService: AlumnoService, public dialog: MatDialog){}
   dtTrigger: Subject<any> = new Subject<any>()
   dtOptions: DataTables.Settings = {};
-  ngOnInit(): void {
-     
+
+  constructor(private alumnoService: AlumnoService, public dialog: MatDialog){}
+  ngAfterViewInit(): void {
+    this.dtTrigger.next(this.alumnos);
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+  
+  ngOnInit(): void { 
     this.dtOptions = {
-      //serverSide: true,     // Set the flag
+      //serverSide: false,     // Set the flag
     };
     this.alumnoService.getAlumnos().subscribe(alumno => {
       this.alumnos = alumno
@@ -52,7 +61,7 @@ export class AlumnosComponent implements OnInit {
         console.log(result)
         swalWithBootstrapButtons.fire(
           'Eliminado!',
-          'Tu registro a sido eliminado.',
+          'Tu registro ha sido eliminado.',
           'success'
         )
       } else if (
@@ -64,6 +73,15 @@ export class AlumnosComponent implements OnInit {
         )
       }
     })
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next(null);
+    });
   }
 
 }

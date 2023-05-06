@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TableComponent } from './table/table.component';
 
 const routes: Routes = [
-  {path:'table', component:TableComponent},
-  {path:'', loadChildren: ()=> import('./alumno/alumno.module').then(m => m.AlumnoModule)}
+  {path:'', loadChildren: ()=> import('./alumno/alumno.module').then(m => m.AlumnoModule)},
+  {path:'', loadChildren: ()=> import('./evaluacion-formativa/evaluacion-formativa.module').then(m => m.EvaluacionFormativaModule)}
 ];
 
 @NgModule({

@@ -1,0 +1,71 @@
+<div class="col-10 col-offset-1">
+    <mat-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Asignatura.">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Selecciona la asignatura</ng-template>
+        <mat-form-field appearance="fill" class="col-5">
+          <mat-label>Selecciona la asignatura</mat-label>
+          <mat-select formControlName="nombre">
+            <mat-option value="español">Español</mat-option>
+            <mat-option value="matematicas">Matematicas</mat-option>
+            <mat-option value="ciencias">Ciencias</mat-option>
+            <mat-option value="geografia">Geografia</mat-option>
+            <mat-option value="fisica">Fisica</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="col-2">
+            <mat-label>Selecciona el grado</mat-label>
+            <mat-select formControlName="grado">
+              <mat-option value="1ro">1ro</mat-option>
+              <mat-option value="2do">2do</mat-option>
+              <mat-option value="3ro">3ro</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="col-2">
+            <mat-label>Selecciona el grupo</mat-label>
+            <mat-select formControlName="grupo">
+              <mat-option value="1ro">grupo 1</mat-option>
+              <mat-option value="2do">grupo 2</mat-option>
+              <mat-option value="3ro">grupo 3</mat-option>
+              <mat-option value="3ro">grupo 4</mat-option>
+              <mat-option value="3ro">grupo 5</mat-option>
+              <mat-option value="3ro">grupo 6</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div>
+            <!-- <p>Go to a different step to see the error state</p> -->
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+
+      
+        <form [formGroup]="rasgosFormArray" (ngSubmit)="guardarRasgos()">
+
+            <ng-container formArrayName="rasgos">
+                <ng-container *ngFor="let rasgo of getRasgo.controls; let i = index">
+                    <div [formGroupName]="i">
+                        <input id="nombre" type="text" formControlName="nombre" />
+                    </div>
+                </ng-container>
+            </ng-container>
+
+            <button type="button" (click)="newRasgo()">Add</button>
+            <button mat-button>Guardar</button>
+        </form>
+        
+    </mat-step>
+
+
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+    </mat-stepper>
+</div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Alumno } from '../models/alumno';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -9,6 +9,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AlumnoService {
 urlEndPoint = 'http://127.0.0.1:8000/api/alumnos'
 private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
+
+  private _refreshrequired=new Subject<void>();
+  get RequiredRefresh(){
+    return this._refreshrequired;
+  }
+
   constructor(private httpClient: HttpClient) { }
 
   getAlumnos(): Observable<Alumno[]>{

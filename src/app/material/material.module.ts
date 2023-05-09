@@ -15,6 +15,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSortModule } from "@angular/material/sort";
+import { MatTableModule } from "@angular/material/table"
+import { MatRadioModule } from "@angular/material/radio"
+import { MatCheckboxModule } from "@angular/material/checkbox"
+
 
 
 @NgModule({
@@ -34,6 +40,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSidenavModule,
     MatSnackBarModule,
     MatToolbarModule,
+
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatRadioModule,
+    MatCheckboxModule
   ]
   
 })

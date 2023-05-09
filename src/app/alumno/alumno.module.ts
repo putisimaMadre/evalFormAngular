@@ -22,7 +22,8 @@ import { AlumnosInputComponent } from './pages/alumnos-input/alumnos-input.compo
     MaterialModule,
     DataTablesModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    
   ]
 })
 export class AlumnoModule { }

@@ -7,8 +7,9 @@ import { Subject } from 'rxjs';
 import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MasterService } from 'src/app/services/master.service';
-import * as alertify from 'alertifyjs'
+// import { MasterService } from 'src/app/services/master.service';
+//import * as alertify from  'alertifyjs';
+import { NewAComponent } from '../new-a/new-a.component';
 
 @Component({
   selector: 'app-alumnos',
@@ -17,7 +18,7 @@ import * as alertify from 'alertifyjs'
 })
 export class AlumnosComponent implements OnInit {
   title = 'alumnos';
-  displayedColumns: string[] = ['numeroLista', 'nombres', 'apellidoP', 'apellidoM', 'grado', 'grupo', 'turno'];
+  displayedColumns: string[] = ['numeroLista', 'nombres', 'apellidoP', 'apellidoM', 'grado', 'grupo', 'turno', 'action'];
   dataSource: any;
   empdata: any;
 
@@ -27,13 +28,11 @@ export class AlumnosComponent implements OnInit {
   
   alumnos?: Alumno[]
 
-  constructor(private alumnoService: AlumnoService, private service: MasterService, public dialog: MatDialog){}
-  dtTrigger: Subject<any> = new Subject<any>()
-  dtOptions: DataTables.Settings = {};
+  constructor(private alumnoService: AlumnoService, public dialog: MatDialog){}
   
   ngOnInit(): void {
     this.GetAll();
-    this.service.RequiredRefresh.subscribe(r => {
+    this.alumnoService.RequiredRefresh.subscribe(r => {
       this.GetAll();
     });
   }
@@ -54,31 +53,29 @@ export class AlumnosComponent implements OnInit {
   getrow(row: any) {
     console.log(row);
   }
-  // FunctionEdit(code: any) {
-  //   this.OpenDialog('1000ms','600ms',code)
-  // }
+  FunctionEdit(alumno: Alumno) {
+    console.log(alumno)
+    this.OpenDialog('1000ms','600ms',alumno)
+  }
   FunctionDelete(code: any) {
-    alertify.confirm("Remove Employee","Do you want to remove?",()=>{
-      this.service.Remove(code).subscribe(result => {
-        this.GetAll();
-        alertify.success("Removed successfully.")
-      });
-
-    },function(){
-
-    })
-    
+    //alertify.confirm("Remove Employee","Do you want to remove?",()=>{
+      // this.alumnoService.Remove(code).subscribe(result => {
+      //   this.GetAll();
+      //   //alertify.success("Removed successfully.")
+      // });
+    // },function(){
+    // })
   }
 
-  // OpenDialog(enteranimation: any, exitanimation: any,code:any) {
+  OpenDialog(enteranimation: any, exitanimation: any, code:any) {
 
-  //   this.dialog.open(ModalpopupComponent, {
-  //     enterAnimationDuration: enteranimation,
-  //     exitAnimationDuration: exitanimation,
-  //     width: "50%",
-  //     data:{
-  //       empcode:code
-  //     }
-  //   })
-  // }
+    this.dialog.open(NewAComponent, {
+      enterAnimationDuration: enteranimation,
+      exitAnimationDuration: exitanimation,
+      width: "50%",
+      data:{
+        empcode:code
+      }
+    })
+  }
 }

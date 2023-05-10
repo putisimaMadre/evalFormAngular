@@ -1,58 +1,59 @@
-<div class="grid">
-  <div class="col-8 col-offset-3">
-    <h1 mat-dialog-title>Alumno</h1>
+<h1 mat-dialog-title>Nuevo Alumno</h1>
+<form [formGroup]="formAlumno" (ngSubmit)="saveCliente()">
     <div mat-dialog-content>
-    Datos del alumno:
-    <form [formGroup]="formAlumno" (ngSubmit)="saveCliente()">
-      <p>
-      <mat-form-field class="col-2" appearance="outline">
-        <mat-label>Numero lista</mat-label>
-        <input matInput placeholder="Ej. 22" formControlName="numeroLista">
-        <mat-icon matSuffix>format_list_numbered</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="col-6">
-        <mat-label>Nombres del alumno</mat-label>
-        <input matInput placeholder="Ej. Jorge Enrique" formControlName="nombres">
-        <mat-icon matSuffix>account_box</mat-icon>
-      </mat-form-field>
-      </p>
-      <p>
-      <mat-form-field appearance="outline" class="col-4">
-        <mat-label>Escribe apellido paterno</mat-label>
-        <input matInput placeholder="Ej. Nieto" formControlName="apellidoP">
-        <mat-icon matSuffix>account_box</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="col-4">
-        <mat-label>Escribe apellido materno</mat-label>
-        <input matInput placeholder="Ej. Moreno" formControlName="apellidoM">
-        <mat-icon matSuffix>account_box</mat-icon>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline" class="ml-1 col-2">
-        <mat-label>Escribe grado</mat-label>
-        <input matInput placeholder="Ej. 3ro" formControlName="grado">
-        <mat-icon matSuffix>announcement</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="ml-6 col-2">
-        <mat-label>Escribe grupo</mat-label>
-        <input matInput placeholder="Ej. E" formControlName="grupo">
-        <mat-icon matSuffix>announcement</mat-icon>
-      </mat-form-field>
-      <mat-form-field class="ml-5 col-3" appearance="outline">
-        <mat-label>Selecciona una opcion</mat-label>
-        <mat-select formControlName="turno">
-          <mat-option value="Matutino">Matutino</mat-option>
-          <mat-option value="Vespertino">Vespertino</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </p>
-
-    <mat-dialog-actions align="end">
-      <button mat-button>Guardar</button>
-    </mat-dialog-actions>
-
-    </form>
+      <div class="grid">
+        <mat-form-field class="col-2">
+            <mat-label>numeroLista</mat-label>
+            <input placeholder="numeroLista" matInput formControlName="numeroLista">
+        </mat-form-field>
+        <mat-form-field class="col-6">
+            <mat-label>nombres</mat-label>
+            <input placeholder="nombres" matInput formControlName="nombres">
+        </mat-form-field>
+        <mat-form-field class="col-3">
+            <mat-label>apellidoP</mat-label>
+            <input placeholder="apellidoP" matInput formControlName="apellidoP">
+        </mat-form-field>
+      </div>
+        <mat-form-field class="col-4">
+            <mat-label>apellidoM</mat-label>
+            <input placeholder="apellidoM" matInput formControlName="apellidoM">
+        </mat-form-field>
+        <mat-form-field class="col-4">
+          <mat-label>grado</mat-label>
+          <input placeholder="grado" matInput formControlName="grado">
+        </mat-form-field>
+        <mat-form-field class="col-4">
+          <mat-label>grupo</mat-label>
+          <input placeholder="grupo" matInput formControlName="grupo">
+        </mat-form-field>
+        <mat-form-field class="col-3">
+        <mat-label>Escoge una opcion</mat-label>
+          <mat-select formControlName="turno">
+            <mat-option value="matutino">Matutino</mat-option>
+            <mat-option value="vespertino">Vespertino</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-form-field>
+            <mat-label>Designation</mat-label>
+           <mat-select formControlName="designation">
+            <mat-option *ngFor="let item of desdata" [value]="item.code">
+            {{item.name}}
+            </mat-option>
+           </mat-select>
+        </mat-form-field>
+        <mat-radio-group formControlName="gender" aria-label="Select an Gender">
+            <mat-radio-button value="M">Male</mat-radio-button>
+            <mat-radio-button value="F">Female</mat-radio-button>
+          </mat-radio-group>
+          <section class="example-section">
+            <br>
+            <mat-checkbox formControlName="isactive" class="example-margin">Is Active</mat-checkbox>
+          </section> -->
+ 
     </div>
-  </div>
-</div>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-raised-button color="primary" cdkFocusInitial>Save</button>
+    </div>
+</form>

@@ -36,6 +36,6 @@ this.RequiredRefresh.next();
   }
 
   GetDes(){
-    return this.http.get('https://localhost:44308/Designation');
+    return this.http.get('http://127.0.0.1:8000/api/alumnos');
   }
 }

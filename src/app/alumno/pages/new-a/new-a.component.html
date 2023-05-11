@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>Nuevo Alumno</h1>
-<form [formGroup]="formAlumno" (ngSubmit)="saveCliente()">
+<form [formGroup]="formAlumno">
     <div mat-dialog-content>
       <div class="grid">
+        <input placeholder="id" matInput formControlName="id">
         <mat-form-field class="col-2">
             <mat-label>numeroLista</mat-label>
             <input placeholder="numeroLista" matInput formControlName="numeroLista">
@@ -52,8 +53,13 @@
           </section> -->
  
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions *ngIf="id == null">
       <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-      <button type="submit" mat-raised-button color="primary" cdkFocusInitial>Save</button>
+      <button type="submit" mat-raised-button color="primary" (click)="saveAlumno()">Guardar</button>
+    </div>
+    <div mat-dialog-actions *ngIf="id">
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-raised-button color="primary" (click)="updateAlumno()">Actualizar</button>
+      {{id}}
     </div>
 </form>

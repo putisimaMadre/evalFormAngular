@@ -1,13 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
-import { MasterService } from 'src/app/services/master.service';
-//import * as alertify from 'alertifyjs';
-import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -16,32 +12,26 @@ import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./new-a.component.css']
 })
 export class NewAComponent implements OnInit{
-  disableSelect = new FormControl(false);
-  // formAlumno: FormGroup = this.formBuilder.group({
-  //   "numeroLista": [],
-  //   "nombres": [],
-  //   "apellidoP": [],
-  //   "apellidoM": [],
-  //   "grado": [],
-  //   "grupo": [],
-  //   "turno": [],
-  //   "status": [1]
-  // })
+
+  desdata: any;
+  editdata: any;
+  id: any
+  
   constructor(private router:Router,
      private alumnoService: AlumnoService,
      private formBuilder: FormBuilder,
      public dialogref: MatDialogRef<NewAComponent>,
-     @Inject(MAT_DIALOG_DATA) public data:any){}
+     @Inject(MAT_DIALOG_DATA) public alumno:any){}
+
   ngOnInit(): void {
       this.loadDes();
-      if(this.data.empcode!=null && this.data.empcode!=''){
-      this.LoadEditData(this.data.empcode);
+      console.log(this.alumno)
+      if(this.alumno.empcode!=null && this.alumno.empcode!=''){
+      this.LoadEditData(this.alumno.empcode);
+      console.log(this.alumno.empcode)
+      this.id = this.alumno.empcode
     }
   }
-
-  desdata: any;
-  respdata: any;
-  editdata: any;
 
   loadDes() {
     this.alumnoService.getAlumnos().subscribe(result => {
@@ -50,6 +40,7 @@ export class NewAComponent implements OnInit{
   }
 
   formAlumno: FormGroup = this.formBuilder.group({
+    id: ["", Validators.required],
     numeroLista: ["", Validators.required],
     nombres: ["", Validators.required],
     apellidoP: ["", Validators.required],
@@ -70,10 +61,12 @@ export class NewAComponent implements OnInit{
   //   turno: new FormControl("", Validators.required),
   // });
 
-  LoadEditData(numeroLista: any) {
-      this.alumnoService.getAlumno(numeroLista).subscribe(item => {
+  LoadEditData(id: any) {
+      this.alumnoService.getAlumno(id).subscribe(item => {
+        // console.log(item)
       this.editdata = item;
       this.formAlumno.setValue({
+        id: this.editdata.id,
         numeroLista: this.editdata.numeroLista,
         nombres: this.editdata.nombres,
         apellidoP: this.editdata.apellidoP,
@@ -105,7 +98,7 @@ export class NewAComponent implements OnInit{
     // }
   // }
 
-  saveCliente(){
+  saveAlumno(){
     this.alumnoService.saveAlumno(this.formAlumno.value).subscribe(alumno=>{
       // this.respdata = alumno;
       // this.router.navigate(['/alumnos'])
@@ -118,6 +111,13 @@ export class NewAComponent implements OnInit{
           })
           this.dialogref.close();
       // window.location.reload();
+    })
+  }
+
+  updateAlumno(): void{
+    this.alumnoService.updateAlumno(this.formAlumno.value).subscribe(alumno => {
+      this.dialogref.close();
+      this.router.navigate(['/alumnos'])
     })
   }
 }

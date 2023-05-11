@@ -22,10 +22,10 @@ private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
   }
 
   saveAlumno(alumno: Alumno): Observable<Alumno>{
-    return this.httpClient.post<Alumno>(this.urlEndPoint, alumno, {headers: this.httpHeaders}).pipe(
+    return this.httpClient.post<Alumno>(this.urlEndPoint, alumno, {headers: this.httpHeaders})
+    .pipe(
       tap(()=>{
         this.RequiredRefresh.next();
-        console.log(this.RequiredRefresh.next())
       })
     );
   }
@@ -40,5 +40,10 @@ private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   updateAlumno(alumno: Alumno): Observable<Alumno>{
     return this.httpClient.put<Alumno>(this.urlEndPoint+'/'+alumno.id, alumno, {headers:this.httpHeaders})
+    .pipe(
+      tap(()=>{
+        this.RequiredRefresh.next();
+      })
+    );
   }
 }

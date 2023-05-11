@@ -2,13 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Employee } from 'src/app/models/Employee';
-import { Subject } from 'rxjs';
 import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { MatDialog } from '@angular/material/dialog';
-// import { MasterService } from 'src/app/services/master.service';
-//import * as alertify from  'alertifyjs';
 import { NewAComponent } from '../new-a/new-a.component';
 
 @Component({
@@ -18,7 +14,7 @@ import { NewAComponent } from '../new-a/new-a.component';
 })
 export class AlumnosComponent implements OnInit {
   title = 'alumnos';
-  displayedColumns: string[] = ['numeroLista', 'nombres', 'apellidoP', 'apellidoM', 'grado', 'grupo', 'turno', 'action'];
+  displayedColumns: string[] = ['id', 'numeroLista', 'nombres', 'apellidoP', 'apellidoM', 'grado', 'grupo', 'turno', 'action'];
   dataSource: any;
   empdata: any;
 
@@ -26,7 +22,7 @@ export class AlumnosComponent implements OnInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   
-  alumnos?: Alumno[]
+  //alumnos?: Alumno[]
 
   constructor(private alumnoService: AlumnoService, public dialog: MatDialog){}
   
@@ -51,10 +47,10 @@ export class AlumnosComponent implements OnInit {
     this.dataSource.filter = filvalue;
   }
   getrow(row: any) {
-    console.log(row);
+    //console.log(row);
   }
   FunctionEdit(alumno: Alumno) {
-    console.log(alumno)
+    //console.log(alumno)
     this.OpenDialog('1000ms','600ms',alumno)
   }
   FunctionDelete(code: any) {
@@ -68,7 +64,8 @@ export class AlumnosComponent implements OnInit {
   }
 
   OpenDialog(enteranimation: any, exitanimation: any, code:any) {
-
+    console.log("code")
+console.log(code)
     this.dialog.open(NewAComponent, {
       enterAnimationDuration: enteranimation,
       exitAnimationDuration: exitanimation,

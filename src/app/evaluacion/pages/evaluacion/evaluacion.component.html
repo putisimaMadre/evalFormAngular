@@ -1,0 +1,108 @@
+<mat-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+        <div>
+          <p>Go to a different step to see the error state</p>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="formGroupEvaluacion" errorMessage="Rasgo es requerido.">
+
+        <form class="formulario" [formGroup]="formGroupEvaluacion" (ngSubmit)="onSubmit()">
+            <ng-template matStepLabel>Escribe tus Rasgos</ng-template>
+            <div class="button">
+              <button type="button" (click)="addLesson()">Agregar fila</button>
+            </div>
+          
+            <mat-table [dataSource]="dataSourcePacks">
+              <ng-container formArrayName="promos">
+          
+                <!-- Cant Column -->
+                <ng-container matColumnDef="cantDesde">
+                  <mat-header-cell *matHeaderCellDef> <h2>CANTIDAD DESDE</h2></mat-header-cell>
+                  <mat-cell *matCellDef="let element;" [formGroup]="element">
+                    <!-- <mat-form-field >
+                      <input matInput placeholder="Cantidad desde" formControlName="cantDesde" required>
+                    </mat-form-field> -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput placeholder="Cantidad desde" formControlName="cantDesde" required>
+                      </mat-form-field>
+                  </mat-cell>
+                </ng-container>
+          
+                <!-- Precio Column -->
+                <ng-container matColumnDef="precio">
+                  <mat-header-cell *matHeaderCellDef> <h2>PRECIO ESPECIAL</h2></mat-header-cell>
+                  <mat-cell *matCellDef="let element;" [formGroup]="element">
+                    <!-- <mat-form-field >
+                      <input matInput placeholder="Precio" formControlName="precio" required>
+                    </mat-form-field> -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput placeholder="Cantidad especial" formControlName="precio" required>
+                      </mat-form-field>
+                  </mat-cell>
+                </ng-container>
+          
+                <!-- Delete Column -->
+                <ng-container matColumnDef="eliminar">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element; index as i" [formGroup]="element">
+          
+                    <button type="button" (click)="deleteLesson(i)">
+                      <mat-icon matSuffix>delete</mat-icon>
+                    </button>
+          
+                  </mat-cell>
+                </ng-container>
+          
+                <!-- header titles -->
+          
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </ng-container>
+            </mat-table>
+          
+            <button class="btn-save" type="submit">Guardar</button>
+            <div>
+                <p>Go to a different step to see the error state</p>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+          </form>
+
+
+      <!-- <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Address</mat-label>
+          <input matInput placeholder="Ex. 1 Main St, New York, NY" formControlName="secondCtrl"
+                 required>
+        </mat-form-field>
+        <div>
+          <p>Go to a different step to see the error state</p>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form> -->
+    </mat-step>
+
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>

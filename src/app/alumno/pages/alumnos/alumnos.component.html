@@ -302,7 +302,7 @@
      <div class="mat-elevation-z8">
    
        <mat-form-field>
-         <mat-label>Filter</mat-label>
+         <mat-label>Filtro</mat-label>
          <input matInput placeholder="Filter" (keyup)="Filterchange($event)">
    
        </mat-form-field>
@@ -360,7 +360,7 @@
        <ng-container matColumnDef="action">
          <th mat-header-cell *matHeaderCellDef> Action </th>
          <td mat-cell *matCellDef="let element"> <button (click)="FunctionEdit(element.id)" mat-raised-button color="primary" >Edit</button> | 
-           <button mat-raised-button color="warn" (click)="FunctionDelete(element.id)">Delete</button>
+           <button mat-raised-button color="warn" (click)="deleteAlumno(element.id)">Delete</button>
          </td>
        </ng-container>
      

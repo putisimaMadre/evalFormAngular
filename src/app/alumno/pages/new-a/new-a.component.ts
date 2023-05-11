@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -51,19 +51,8 @@ export class NewAComponent implements OnInit{
     status: ["1", Validators.required],
   })
 
-  // Reactiveform = new FormGroup({
-  //   numeroLista: new FormControl("", Validators.required),
-  //   nombres: new FormControl("", Validators.required),
-  //   apellidoP: new FormControl("", Validators.required),
-  //   apellidoM: new FormControl("", Validators.required),
-  //   grado: new FormControl("", Validators.required),
-  //   grupo: new FormControl("", Validators.required),
-  //   turno: new FormControl("", Validators.required),
-  // });
-
   LoadEditData(id: any) {
       this.alumnoService.getAlumno(id).subscribe(item => {
-        // console.log(item)
       this.editdata = item;
       this.formAlumno.setValue({
         id: this.editdata.id,
@@ -79,43 +68,28 @@ export class NewAComponent implements OnInit{
     });
   }
 
-  // SaveEmployee() {
-  //   console.log(this.formAlumno.value)
-  //   this.alumnoService.saveAlumno(this.formAlumno.value).subscribe(alumno => {
-  //     this.router.navigate(['/alumnos'])
-  //   })
-    // if (this.Reactiveform.valid) {
-    //   this.service.Save(this.Reactiveform.value.nombres).subscribe(result => {
-    //     this.respdata = result;
-    //     if (this.respdata.result == 'pass') {
-    //       //alertify.success("saved successfully.")
-    //       this.dialogref.close();
-    //     }
-    //   });
-
-    // } else {
-    //   //alertify.error("Please Enter valid data")
-    // }
-  // }
-
   saveAlumno(){
     this.alumnoService.saveAlumno(this.formAlumno.value).subscribe(alumno=>{
-      // this.respdata = alumno;
-      // this.router.navigate(['/alumnos'])
           Swal.fire({
             position: 'top-end',
             icon: 'success',
             title: 'Alumno guardado correctamente',
             showConfirmButton: false,
-            timer: 3000
+            timer: 2000
           })
           this.dialogref.close();
-      // window.location.reload();
     })
   }
 
   updateAlumno(): void{
     this.alumnoService.updateAlumno(this.formAlumno.value).subscribe(alumno => {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Alumno actualizado correctamente',
+        showConfirmButton: false,
+        timer: 2000
+      })
       this.dialogref.close();
       this.router.navigate(['/alumnos'])
     })

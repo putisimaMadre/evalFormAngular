@@ -2,37 +2,36 @@
 <form [formGroup]="formAlumno">
     <div mat-dialog-content>
       <div class="grid">
-        <input placeholder="id" matInput formControlName="id">
         <mat-form-field class="col-2">
-            <mat-label>numeroLista</mat-label>
-            <input placeholder="numeroLista" matInput formControlName="numeroLista">
+            <mat-label>No. Lista</mat-label>
+            <input placeholder="No. Lista" matInput formControlName="numeroLista">
         </mat-form-field>
         <mat-form-field class="col-6">
-            <mat-label>nombres</mat-label>
+            <mat-label>Nombres</mat-label>
             <input placeholder="nombres" matInput formControlName="nombres">
         </mat-form-field>
         <mat-form-field class="col-3">
-            <mat-label>apellidoP</mat-label>
-            <input placeholder="apellidoP" matInput formControlName="apellidoP">
+            <mat-label>Apellido Paterno</mat-label>
+            <input placeholder="Apellido Paterno" matInput formControlName="apellidoP">
         </mat-form-field>
       </div>
         <mat-form-field class="col-4">
-            <mat-label>apellidoM</mat-label>
-            <input placeholder="apellidoM" matInput formControlName="apellidoM">
+            <mat-label>Apellido Materno</mat-label>
+            <input placeholder="Apellido Materno" matInput formControlName="apellidoM">
         </mat-form-field>
         <mat-form-field class="col-4">
-          <mat-label>grado</mat-label>
-          <input placeholder="grado" matInput formControlName="grado">
+          <mat-label>Grado</mat-label>
+          <input placeholder="Grado" matInput formControlName="grado">
         </mat-form-field>
         <mat-form-field class="col-4">
-          <mat-label>grupo</mat-label>
-          <input placeholder="grupo" matInput formControlName="grupo">
+          <mat-label>Grupo</mat-label>
+          <input placeholder="Grupo" matInput formControlName="grupo">
         </mat-form-field>
         <mat-form-field class="col-3">
         <mat-label>Escoge una opcion</mat-label>
           <mat-select formControlName="turno">
-            <mat-option value="matutino">Matutino</mat-option>
-            <mat-option value="vespertino">Vespertino</mat-option>
+            <mat-option value="Matutino">Matutino</mat-option>
+            <mat-option value="Vespertino">Vespertino</mat-option>
           </mat-select>
         </mat-form-field>
         <!-- <mat-form-field>
@@ -60,6 +59,5 @@
     <div mat-dialog-actions *ngIf="id">
       <button mat-raised-button color="warn" mat-dialog-close>Close</button>
       <button type="submit" mat-raised-button color="primary" (click)="updateAlumno()">Actualizar</button>
-      {{id}}
     </div>
 </form>

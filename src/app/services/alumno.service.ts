@@ -46,4 +46,14 @@ private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
       })
     );
   }
+
+  deleteAlumno(id: any): Observable<Alumno>{
+    return this.httpClient.delete<Alumno>(this.urlEndPoint+'/'+id)
+    .pipe(
+      tap(()=>{
+        this.RequiredRefresh.next();
+      })
+    );
+  }
+
 }

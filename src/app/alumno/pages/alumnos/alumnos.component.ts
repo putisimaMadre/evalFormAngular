@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,9 @@ import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewAComponent } from '../new-a/new-a.component';
+import Swal from 'sweetalert2';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alumnos',
@@ -21,10 +24,8 @@ export class AlumnosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  
-  //alumnos?: Alumno[]
-
-  constructor(private alumnoService: AlumnoService, public dialog: MatDialog){}
+  constructor(private alumnoService: AlumnoService, 
+    public dialog: MatDialog){}
   
   ngOnInit(): void {
     this.GetAll();
@@ -53,7 +54,17 @@ export class AlumnosComponent implements OnInit {
     //console.log(alumno)
     this.OpenDialog('1000ms','600ms',alumno)
   }
-  FunctionDelete(code: any) {
+  deleteAlumno(id: any) {
+      console.log(this.alumnoService.deleteAlumno(id))
+      this.alumnoService.deleteAlumno(id).subscribe(alumno => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Alumno Eliminado correctamente',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      })
     //alertify.confirm("Remove Employee","Do you want to remove?",()=>{
       // this.alumnoService.Remove(code).subscribe(result => {
       //   this.GetAll();

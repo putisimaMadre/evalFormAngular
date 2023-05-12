@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Nueva Rasgo</h1>
+<form [formGroup]="formRasgo">
+    <div mat-dialog-content>
+      <div class="grid">
+        <!-- <mat-form-field class="col-2">
+            <mat-label>Asignatura</mat-label>
+            <input placeholder="Asignatura" matInput formControlName="asignatura">
+        </mat-form-field> -->
+        <mat-form-field class="col-5">
+        <mat-label>Asignatura</mat-label>
+            <mat-select formControlName="idAsignatura">
+            <mat-option *ngFor="let asignatura of asignaturas" [value]="asignatura.id">
+                {{asignatura.asignatura}}
+            </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+            <mat-label>Rasgo</mat-label>
+            <input placeholder="Rasgo" matInput formControlName="rasgo">
+        </mat-form-field>
+        <mat-form-field class="col-2">
+            <mat-label>Porcentaje</mat-label>
+            <input placeholder="porcentaje" matInput formControlName="porcentaje">
+        </mat-form-field>
+      </div>
+        
+ 
+    </div>
+    <div mat-dialog-actions *ngIf="id == null">
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-raised-button color="primary" (click)="saveRasgo()">Guardar</button>
+    </div>
+    <div mat-dialog-actions *ngIf="id">
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-raised-button color="primary" (click)="updateRasgo()">Actualizar</button>
+    </div>
+</form>

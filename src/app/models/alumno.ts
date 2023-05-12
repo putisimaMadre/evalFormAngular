@@ -1,5 +1,5 @@
 export interface Alumno {
-    "id": number
+    "id": number,
     "numeroLista": string,
     "nombres": string,
     "apellidoP": string,

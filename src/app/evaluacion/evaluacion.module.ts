@@ -8,13 +8,17 @@ import { ActividadComponent } from './pages/actividad/actividad.component';
 import { EvaluacionComponent } from './pages/evaluacion/evaluacion.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NewAsignaturaComponent } from './pages/new-asignatura/new-asignatura.component';
+import { NewRasgoComponent } from './pages/new-rasgo/new-rasgo.component';
 
 @NgModule({
   declarations: [
     AsignaturaComponent,
     RasgoComponent,
     ActividadComponent,
-    EvaluacionComponent
+    EvaluacionComponent,
+    NewAsignaturaComponent,
+    NewRasgoComponent
   ],
   imports: [
     CommonModule,

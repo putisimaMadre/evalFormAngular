@@ -1,2 +1,2 @@
-export interface Models {
+export interface Actividad {
 }

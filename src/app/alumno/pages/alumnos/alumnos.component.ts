@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,8 +7,6 @@ import { AlumnoService } from 'src/app/services/alumno.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewAComponent } from '../new-a/new-a.component';
 import Swal from 'sweetalert2';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alumnos',

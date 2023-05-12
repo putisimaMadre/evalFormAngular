@@ -1,9 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, Validators, FormControl, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-
-import { MatTableDataSource } from '@angular/material/table'
-
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-evaluacion',
@@ -18,66 +15,20 @@ import { MatTableDataSource } from '@angular/material/table'
 })
 export class EvaluacionComponent implements OnInit{
 
-  title = 'form-array';
-
-  //formGroupEvaluacion!: FormGroup
-  dataSourcePacks!: MatTableDataSource<any>;
-  displayedColumns = ["cantDesde", "precio", "eliminar"]
-
-  //cantDesde = new FormControl('')
-  precio = new FormControl('')
-
-  constructor(private formBuilder: FormBuilder,
-    private cd: ChangeDetectorRef
-    ) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-
-    
-
   }
+
+  formGroupAsignatura = this.formBuilder.group({
+    
+  });
 
   formGroupEvaluacion = this.formBuilder.group({
-    cantDesde: ['', Validators.required],
-    precio: ['', Validators.required],
-    promos: this.formBuilder.array([])
+   
   });
 
-  firstFormGroup = this.formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  rasgoFormGroup = this.formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-
-  get promos() {
-    return this.formGroupEvaluacion.controls["promos"] as FormArray;
-  };
-
-  addLesson(): void {
-
-    const lessonForm = this.formBuilder.group({
-      cantDesde: [''],
-      precio: ['']
-    });
-
-
-    this.promos.push(lessonForm);
-    this.dataSourcePacks = new MatTableDataSource(this.promos.controls);
-
-    this.cd.detectChanges();
-
-  };
-
-
-  deleteLesson(lessonIndex: number): void {
-
-    this.promos.removeAt(lessonIndex);
-    this.dataSourcePacks = new MatTableDataSource(this.promos.controls);
-
-  };
-
-  onSubmit() {
-    console.log(this.promos.value)
-  }
+  formGroupActividad = this.formBuilder.group({
+   
+  })
 }

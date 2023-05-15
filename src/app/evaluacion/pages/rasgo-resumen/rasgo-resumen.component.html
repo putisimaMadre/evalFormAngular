@@ -44,18 +44,14 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       </table>
-      
-        
-            <ngx-charts-advanced-pie-chart
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="grafico"
-            [gradient]="gradient"
-            (select)="onSelect($event)"
-            (activate)="onActivate($event)"
-            (deactivate)="onDeactivate($event)"
-            >
-            </ngx-charts-advanced-pie-chart>
+        <div class="col-7 col-offset-4">
+            <canvas baseChart class="chart"
+            [data]="pieChartData"
+            [type]="pieChartType"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins">
+            </canvas>
+        </div>
         
         
     </div>

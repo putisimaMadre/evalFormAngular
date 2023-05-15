@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RasgoService } from 'src/app/services/rasgo.service';
 import Swal from 'sweetalert2';
@@ -6,7 +6,10 @@ import { Grafico } from 'src/app/models/grafico';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AsignaturaService } from 'src/app/services/asignatura.service';
 import { Asignatura } from 'src/app/models/asignatura';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
+
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-rasgo-resumen',
@@ -14,6 +17,9 @@ import { Color, ScaleType } from '@swimlane/ngx-charts';
   styleUrls: ['./rasgo-resumen.component.css']
 })
 export class RasgoResumenComponent implements OnInit{
+  
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
   asignaturas?: Asignatura[];
   id: any;
   resumen?: any
@@ -53,51 +59,74 @@ export class RasgoResumenComponent implements OnInit{
     
     consultaRasgo(){
       this.rasgoService.getGrafico(this.formRasgo.value).subscribe(valor => {
+        
         this.grafico = valor
-
         let totalPorcentaje: number = 0
         let restante: number = 0
         this.grafico.forEach((res)=>{
           totalPorcentaje = totalPorcentaje + Number.parseInt(res.value)
+          console.log(res.value)
+          this.removeSlice()
+          this.addSlice(res.value+"%", Number.parseInt(res.value))
         })
         if(totalPorcentaje != 100){
           restante = 100 - totalPorcentaje
         }
         
-        this.grafico.push({"name": "Faltante", "value": restante.toString()})
+        //this.grafico.push({"name": "Faltante", "value": restante.toString()})
+        this.addSlice(restante+'% Restante', restante)
       })
+
       this.rasgoService.getResumen(this.formRasgo.value).subscribe(valor => { 
         this.resumen = valor
       })
     }
 
-    //Grafica
-  view: [number, number] = [800, 500];
-
-  // options
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
-
-  
-    colorScheme: Color = {
-      name: 'myScheme',
-      selectable: true,
-      group: ScaleType.Ordinal,
-      domain: ['#716', '#C21', '#C2E'],
+    //Graficos
+    public pieChartOptions: ChartConfiguration['options'] = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'right',
+        },
+        datalabels: {
+          formatter: (value, ctx) => {
+            if (ctx.chart.data.labels) {
+              return ctx.chart.data.labels[ctx.dataIndex];
+            }
+          },
+        },
+      }
     };
 
+    public pieChartData: ChartData<'pie', number[], string | string[]> = {
+      labels: [],
+      datasets: [ {
+        data: []
+      } ]
+    };
+    public pieChartType: ChartType = 'pie';
+    public pieChartPlugins = [ DatalabelsPlugin ];
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
+    addSlice(name: string, valor: number): void {
+      if (this.pieChartData.labels) {
+        this.pieChartData.labels.push([ name]);
+      }
+  
+      this.pieChartData.datasets[0].data.push(valor);
+  
+      this.chart?.update();
+    }
 
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
+    removeSlice(): void {
+      if (this.pieChartData.labels) {
+        this.pieChartData.labels.pop();
+      }
+  
+      this.pieChartData.datasets[0].data.pop();
+  
+      this.chart?.update();
+    }
 
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
 }

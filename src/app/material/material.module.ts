@@ -20,8 +20,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table"
 import { MatRadioModule } from "@angular/material/radio"
 import { MatCheckboxModule } from "@angular/material/checkbox"
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -47,7 +46,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatSortModule,
     MatRadioModule,
     MatCheckboxModule,
-    NgxChartsModule
+    NgChartsModule
   ]
   
 })

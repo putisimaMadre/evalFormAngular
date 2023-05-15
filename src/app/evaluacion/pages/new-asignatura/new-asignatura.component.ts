@@ -12,7 +12,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./new-asignatura.component.css']
 })
 export class NewAsignaturaComponent implements OnInit{
-
+  
   constructor(
     private router:Router,
      private asignaturaService: AsignaturaService,
@@ -30,7 +30,6 @@ export class NewAsignaturaComponent implements OnInit{
       this.id = this.asignatura.empcode
     }
   }
-
   desdata: any;
   editdata: any;
   id: any;

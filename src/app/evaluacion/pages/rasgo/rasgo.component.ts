@@ -6,6 +6,7 @@ import { Rasgo } from 'src/app/models/rasgo';
 import { RasgoService } from 'src/app/services/rasgo.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewRasgoComponent } from '../new-rasgo/new-rasgo.component';
+import { RasgoResumenComponent } from '../rasgo-resumen/rasgo-resumen.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -64,11 +65,21 @@ export class RasgoComponent implements OnInit{
   }
 
   OpenDialog(enteranimation: any, exitanimation: any, code:any) {
-    console.log(code)
     this.dialog.open(NewRasgoComponent, {
       enterAnimationDuration: enteranimation,
       exitAnimationDuration: exitanimation,
       width: "50%",
+      data:{
+        empcode:code
+      }
+    })
+  }
+
+  OpenDialogResumenRasgos(enteranimation: any, exitanimation: any, code:any) {
+    this.dialog.open(RasgoResumenComponent, {
+      enterAnimationDuration: enteranimation,
+      exitAnimationDuration: exitanimation,
+      width: "70%",
       data:{
         empcode:code
       }

@@ -48,6 +48,7 @@ export class AsignaturaService {
     );
   }
 
+
   deleteAsignatura(id: any): Observable<Asignatura>{
     return this.httpClient.delete<Asignatura>(this.urlEndPoint+'/'+id)
     .pipe(

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
 import { Rasgo } from '../models/rasgo';
+import { Grafico } from '../models/grafico';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -8,6 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class RasgoService {
   urlEndPoint = 'http://127.0.0.1:8000/api/rasgo'
+  urlEndPointResumen = 'http://127.0.0.1:8000/api/rasgoResumen'
+  urlEndPointGrafico = 'http://127.0.0.1:8000/api/getGrafico'
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   private _refreshrequired = new Subject<void>();
@@ -19,6 +22,14 @@ export class RasgoService {
 
   getRasgos(): Observable<Rasgo[]>{
     return this.httpClient.get<Rasgo[]>(this.urlEndPoint)
+  }
+
+  getResumen(rasgo: Rasgo): Observable<Rasgo>{
+    return this.httpClient.post<Rasgo>(this.urlEndPointResumen, rasgo, {headers: this.httpHeaders})
+  }
+
+  getGrafico(valores: Rasgo): Observable<Grafico[]>{
+    return this.httpClient.post<Grafico[]>(this.urlEndPointGrafico, valores, {headers: this.httpHeaders})
   }
 
   saveRasgo(rasgo: Rasgo): Observable<Rasgo>{

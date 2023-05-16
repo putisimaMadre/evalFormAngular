@@ -1,8 +1,14 @@
-import { Component, DefaultIterableDiffer, OnInit } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { MatTableDataSource } from '@angular/material/table'
-import { Calificacion, UserColumns  } from 'src/app/models/calificacion';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RasgoService } from 'src/app/services/rasgo.service';
+import { Rasgo } from 'src/app/models/rasgo';
+import { Actividad } from 'src/app/models/actividad';
+import { Alumno } from 'src/app/models/alumno';
+import { AsignaturaService } from 'src/app/services/asignatura.service';
+import { ActividadService } from 'src/app/services/actividad.service';
+import { AlumnoService } from 'src/app/services/alumno.service';
 import { CalificacionService } from 'src/app/services/calificacion.service';
+import { Asignatura } from 'src/app/models/asignatura';
 
 @Component({
   selector: 'app-calificacion',
@@ -11,78 +17,63 @@ import { CalificacionService } from 'src/app/services/calificacion.service';
 })
 export class CalificacionComponent implements OnInit{
 
-  displayedColumns: string[] = UserColumns.map((col) => col.key)
-  columnsSchema: any = UserColumns
-  dataSource = new MatTableDataSource<Calificacion>()
-  valid: any = {}
+  asignaturas?: Asignatura[];
+  actividades?: Actividad[];
+  rasgos?: Rasgo[];
+  alumnos?: Alumno[];
 
-  constructor(public dialog: MatDialog, private calificacionService: CalificacionService) {}
+  constructor(
+    private rasgoService: RasgoService,
+    private actividadService: ActividadService,
+    private asignaturaService: AsignaturaService,
+    private alumnoService: AlumnoService,
+    private calificacionService: CalificacionService,
+    private formBuilder: FormBuilder, 
+    ) {}
 
   ngOnInit(): void {
-    this.calificacionService.getUsers().subscribe((res: any) => {
-      this.dataSource.data = res
-    })
+    this.loadRasgos();
+    this.loadAsignaturas()
+    this.loadAlumnos()
+    this.loadActividades()
   }
 
-  editRow(row: Calificacion) {
-    if (row.id === 0) {
-      this.calificacionService.addUser(row).subscribe((newUser: Calificacion) => {
-        row.id = newUser.id
-        row.isEdit = false
-      })
-    } else {
-      this.calificacionService.updateUser(row).subscribe(() => (row.isEdit = false))
-    }
+  loadRasgos() {
+    this.rasgoService.getRasgos().subscribe(result => {
+      this.rasgos = result;
+    });
   }
 
-  addRow() {
-    const newRow: Calificacion = {
-      id: 0,
-      firstName: '',
-      lastName: '',
-      email: '',
-      birthDate: '',
-      isEdit: true,
-      isSelected: false,
-    }
-    this.dataSource.data = [newRow, ...this.dataSource.data]
+  loadAsignaturas() {
+    this.asignaturaService.getAsignaturas().subscribe(result => {
+      this.asignaturas = result;
+    });
   }
 
-  removeRow(id: number) {
-    this.calificacionService.deleteUser(id).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter(
-        (u: Calificacion) => u.id !== id,
-      )
-    })
+  loadActividades() {
+    this.actividadService.getActividades().subscribe(result => {
+      this.actividades = result;
+    });
   }
 
-  inputHandler(e: any, id: number, key: string) {
-    if (!this.valid[id]) {
-      this.valid[id] = {}
-    }
-    this.valid[id][key] = e.target.validity.valid
+  loadAlumnos() {
+    this.alumnoService.getAlumnos().subscribe(result => {
+      this.alumnos = result;
+    });
   }
 
-  disableSubmit(id: number) {
-    if (this.valid[id]) {
-      return Object.values(this.valid[id]).some((item) => item === false)
-    }
-    return false
-  }
+  formConsultaCalificacion: FormGroup = this.formBuilder.group({
+    id: ["", Validators.required],
+    idAsignatura: ["", Validators.required],
+    idRasgo: ["", Validators.required],
+    idActividad: ["", Validators.required],
+    grado: ["", Validators.required],
+    grupo: ["", Validators.required],
+    status: [1, Validators.required],
+  })
 
-  isAllSelected() {
-    return this.dataSource.data.every((item) => item.isSelected)
-  }
-
-  isAnySelected() {
-    return this.dataSource.data.some((item) => item.isSelected)
-  }
-
-  selectAll(event: any) {
-    this.dataSource.data = this.dataSource.data.map((item) => ({
-      ...item,
-      isSelected: event.checked,
-    }))
+  consultarDatos(){
+    console.log(this.formConsultaCalificacion.value)    
   }
 
 }

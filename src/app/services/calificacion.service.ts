@@ -1,40 +1,56 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
-import { Calificacion } from 'src/app/models/calificacion';
-import { map } from 'rxjs/operators';
+import { Observable, Subject, tap } from 'rxjs';
+import { Calificacion } from '../models/calificacion';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalificacionService {
-  private serviceUrl = 'https://dummyjson.com/users';
+  urlEndPoint = 'http://127.0.0.1:8000/api/calificacion'
+  private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
-  constructor(private http: HttpClient) { }
-
-  getUsers(): Observable<Calificacion[]> {
-    return this.http
-      .get(this.serviceUrl)
-      .pipe<Calificacion[]>(map((data: any) => data.users));
+  private _refreshrequired = new Subject<void>();
+  get RequiredRefresh(){
+    return this._refreshrequired;
   }
 
-  updateUser(user: Calificacion): Observable<Calificacion> {
-    return this.http.patch<Calificacion>(`${this.serviceUrl}/${user.id}`, user);
+  constructor(private httpClient: HttpClient) { }
+
+  getCalificaciones(): Observable<Calificacion[]>{
+    return this.httpClient.get<Calificacion[]>(this.urlEndPoint)
   }
 
-  addUser(user: Calificacion): Observable<Calificacion> {
-    return this.http.post<Calificacion>(`${this.serviceUrl}/add`, user);
+  saveCalificacion(asignatura: Calificacion): Observable<Calificacion>{
+    console.log(asignatura)
+    return this.httpClient.post<Calificacion>(this.urlEndPoint, asignatura, {headers: this.httpHeaders})
+    .pipe(
+      tap(()=>{
+        this.RequiredRefresh.next();
+      })
+    );
   }
 
-  deleteUser(id: number): Observable<Calificacion> {
-    return this.http.delete<Calificacion>(`${this.serviceUrl}/${id}`);
+  getCalificacion(id: any): Observable<Calificacion>{
+    return this.httpClient.get<Calificacion>(this.urlEndPoint+'/'+id)
   }
 
-  deleteUsers(users: Calificacion[]): Observable<Calificacion[]> {
-    return forkJoin(
-      users.map((user) =>
-        this.http.delete<Calificacion>(`${this.serviceUrl}/${user.id}`)
-      )
+  updateCalificacion(calificacion: Calificacion): Observable<Calificacion>{
+    return this.httpClient.put<Calificacion>(this.urlEndPoint+'/'+calificacion.id, calificacion, {headers:this.httpHeaders})
+    .pipe(
+      tap(()=>{
+        this.RequiredRefresh.next();
+      })
+    );
+  }
+
+
+  deleteCalificacion(id: any): Observable<Calificacion>{
+    return this.httpClient.delete<Calificacion>(this.urlEndPoint+'/'+id)
+    .pipe(
+      tap(()=>{
+        this.RequiredRefresh.next();
+      })
     );
   }
 }

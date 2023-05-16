@@ -13,6 +13,7 @@ import { NewRasgoComponent } from './pages/new-rasgo/new-rasgo.component';
 import { RasgoResumenComponent } from './pages/rasgo-resumen/rasgo-resumen.component';
 import { NewActividadComponent } from './pages/new-actividad/new-actividad.component';
 import { CalificacionComponent } from './pages/calificacion/calificacion.component';
+import { NewCalificacionComponent } from './pages/new-calificacion/new-calificacion.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CalificacionComponent } from './pages/calificacion/calificacion.compone
     NewRasgoComponent,
     RasgoResumenComponent,
     NewActividadComponent,
-    CalificacionComponent
+    CalificacionComponent,
+    NewCalificacionComponent
   ],
   imports: [
     CommonModule,

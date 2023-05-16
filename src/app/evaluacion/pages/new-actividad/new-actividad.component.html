@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>Nueva Actividad</h1>
+<form [formGroup]="formActividad">
+    <div mat-dialog-content>
+      <div class="grid">
+        <!-- <mat-form-field class="col-2">
+            <mat-label>Asignatura</mat-label>
+            <input placeholder="Asignatura" matInput formControlName="asignatura">
+        </mat-form-field> -->
+        <mat-form-field class="col-4">
+        <mat-label>Asignatura</mat-label>
+            <mat-select formControlName="idAsignatura">
+            <mat-option *ngFor="let asignatura of asignaturas" [value]="asignatura.id">
+                {{asignatura.asignatura}}
+            </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+            <mat-label>Rasgo</mat-label>
+                <mat-select formControlName="idRasgo">
+                <mat-option *ngFor="let rasgo of rasgos" [value]="rasgo.id">
+                    {{rasgo.rasgo}}
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+        <mat-form-field class="col-4">
+            <mat-label>Actividad</mat-label>
+            <input placeholder="actividad" matInput formControlName="actividad">
+        </mat-form-field>
+      </div>
+        
+ 
+    </div>
+    <div mat-dialog-actions *ngIf="id == null">
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-raised-button color="primary" (click)="saveActividad()">Guardar</button>
+    </div>
+    <div mat-dialog-actions *ngIf="id">
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-raised-button color="primary" (click)="updateActividad()">Actualizar</button>
+    </div>
+</form>

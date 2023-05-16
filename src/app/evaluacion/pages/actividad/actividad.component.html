@@ -1,1 +1,75 @@
-<p>actividad works!</p>
+<div class="content" role="main">
+    <div class="grid">
+      <div class="col-3">
+       <button (click)="OpenDialog('1000ms','500ms','')"  mat-raised-button color="primary" >Nueva Actividad</button>
+      </div>
+      </div>
+      <br>
+     
+       <div class="mat-elevation-z8">
+     
+         <mat-form-field>
+           <mat-label>Filtro</mat-label>
+           <input matInput placeholder="Filter" (keyup)="Filterchange($event)">
+     
+         </mat-form-field>
+     
+       <table mat-table matSort [dataSource]="dataSource" >
+     
+         <!--- Note that these columns can be defined in any order.
+               The actual rendered columns are set as a property on the row definition" -->
+  
+               <!-- Position Column -->
+         <ng-container matColumnDef="id">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+  
+        <!-- Weight Column -->
+        <ng-container matColumnDef="idAsignatura">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Asignatura </th>
+          <td mat-cell *matCellDef="let element"> {{element.idAsignatura}} </td>
+        </ng-container>
+  
+        <!-- Weight Column -->
+        <ng-container matColumnDef="grado">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Grado </th>
+          <td mat-cell *matCellDef="let element"> {{element.grado}} </td>
+        </ng-container>
+  
+        <!-- Weight Column -->
+        <ng-container matColumnDef="grupo">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Grupo </th>
+          <td mat-cell *matCellDef="let element"> {{element.grupo}} </td>
+        </ng-container>
+       
+         <!-- Position Column -->
+         <ng-container matColumnDef="idRasgo">
+           <th mat-header-cell mat-sort-header *matHeaderCellDef> Rasgo </th>
+           <td mat-cell *matCellDef="let element"> {{element.rasgo}} </td>
+         </ng-container>
+       
+         <!-- Name Column -->
+         <ng-container matColumnDef="actividad">
+           <th mat-sort-header mat-header-cell *matHeaderCellDef> Actividad </th>
+           <td mat-cell *matCellDef="let element"> {{element.actividad}} </td>
+         </ng-container>
+     
+         <ng-container matColumnDef="action">
+           <th mat-header-cell *matHeaderCellDef> Action </th>
+           <td mat-cell *matCellDef="let element"> <button (click)="FunctionEdit(element.id)" mat-raised-button color="primary" >Edit</button> | 
+             <button mat-raised-button color="warn" (click)="deleteActividad(element.id)">Delete</button>
+           </td>
+         </ng-container>
+       
+         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+         <tr (click)="getrow(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       </table>
+     
+       <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
+     
+       </mat-paginator>
+       
+     </div>
+     </div>
+  

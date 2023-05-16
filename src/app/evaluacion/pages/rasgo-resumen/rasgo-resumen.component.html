@@ -44,7 +44,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       </table>
-        <div class="col-7 col-offset-4">
+        <div class="col-7 col-offset-4" id="canvas">
             <canvas baseChart class="chart"
             [data]="pieChartData"
             [type]="pieChartType"
@@ -52,7 +52,6 @@
             [plugins]="pieChartPlugins">
             </canvas>
         </div>
-        
         
     </div>
     <div mat-dialog-actions *ngIf="id == null">

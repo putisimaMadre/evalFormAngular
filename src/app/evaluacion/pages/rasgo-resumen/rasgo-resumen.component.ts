@@ -10,6 +10,7 @@ import { Asignatura } from 'src/app/models/asignatura';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-rasgo-resumen',
@@ -56,8 +57,11 @@ export class RasgoResumenComponent implements OnInit{
       grupo: ["", Validators.required],
       status: ["1", Validators.required],
     })
+
+
     
     consultaRasgo(){
+      this.resetChart()
       this.rasgoService.getGrafico(this.formRasgo.value).subscribe(valor => {
         
         this.grafico = valor
@@ -66,7 +70,6 @@ export class RasgoResumenComponent implements OnInit{
         this.grafico.forEach((res)=>{
           totalPorcentaje = totalPorcentaje + Number.parseInt(res.value)
           console.log(res.value)
-          this.removeSlice()
           this.addSlice(res.value+"%", Number.parseInt(res.value))
         })
         if(totalPorcentaje != 100){
@@ -100,6 +103,7 @@ export class RasgoResumenComponent implements OnInit{
       }
     };
 
+
     public pieChartData: ChartData<'pie', number[], string | string[]> = {
       labels: [],
       datasets: [ {
@@ -119,12 +123,13 @@ export class RasgoResumenComponent implements OnInit{
       this.chart?.update();
     }
 
-    removeSlice(): void {
+    resetChart(): void {
       if (this.pieChartData.labels) {
         this.pieChartData.labels.pop();
       }
   
-      this.pieChartData.datasets[0].data.pop();
+      this.pieChartData.datasets[0].data = [];
+      this.pieChartData.labels = [];
   
       this.chart?.update();
     }

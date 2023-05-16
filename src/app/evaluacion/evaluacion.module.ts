@@ -7,10 +7,12 @@ import { RasgoComponent } from './pages/rasgo/rasgo.component';
 import { ActividadComponent } from './pages/actividad/actividad.component';
 import { EvaluacionComponent } from './pages/evaluacion/evaluacion.component';
 import { MaterialModule } from '../material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewAsignaturaComponent } from './pages/new-asignatura/new-asignatura.component';
 import { NewRasgoComponent } from './pages/new-rasgo/new-rasgo.component';
 import { RasgoResumenComponent } from './pages/rasgo-resumen/rasgo-resumen.component';
+import { NewActividadComponent } from './pages/new-actividad/new-actividad.component';
+import { CalificacionComponent } from './pages/calificacion/calificacion.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,15 @@ import { RasgoResumenComponent } from './pages/rasgo-resumen/rasgo-resumen.compo
     EvaluacionComponent,
     NewAsignaturaComponent,
     NewRasgoComponent,
-    RasgoResumenComponent
+    RasgoResumenComponent,
+    NewActividadComponent,
+    CalificacionComponent
   ],
   imports: [
     CommonModule,
     EvaluacionRoutingModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule
   ]
 })

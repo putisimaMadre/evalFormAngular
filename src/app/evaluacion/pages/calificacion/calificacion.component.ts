@@ -50,6 +50,10 @@ export class CalificacionComponent implements OnInit{
     this.loadAsignaturas()
     this.loadAlumnos()
     this.loadActividades()
+    this.loadCalificaciones();
+    this.calificacionService.RequiredRefresh.subscribe(r => {
+      this.loadCalificaciones();
+    });
   }
 
   loadRasgos() {
@@ -79,6 +83,7 @@ export class CalificacionComponent implements OnInit{
   loadCalificaciones(){
     this.calificacionService.consultarDatos(this.formConsultaCalificacion.value).subscribe(result => {
       this.calificaciones = result;
+      console.log(result)
       this.dataSourceCalificaciones = new MatTableDataSource<Calificacion>(this.calificaciones)
       this.dataSourceCalificaciones.paginator = this.paginator;
       this.dataSourceCalificaciones.sort = this.sort;
@@ -94,10 +99,6 @@ export class CalificacionComponent implements OnInit{
     grupo: ["", Validators.required],
     status: [1, Validators.required],
   })
-
-  // consultarDatos(){
-  //   this.calificacionService.consultarDatos(this.formConsultaCalificacion.value).subscribe(cal => this.calificaciones = cal)
-  // }
 
   Filterchange(event: Event) {
     const filvalue = (event.target as HTMLInputElement).value;

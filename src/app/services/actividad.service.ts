@@ -26,7 +26,7 @@ export class ActividadService {
     return this.httpClient.get<Actividad[]>(this.urlEndPoint)
   }
 
-  getGradoGrupoTurno(actividad: Actividad): Observable<Alumno[]>{
+  getGradoGrupoTurno(actividad: any): Observable<Alumno[]>{
     return this.httpClient.post<Alumno[]>(this.urlEndPointGradoGrupoTurno, actividad, {headers: this.httpHeaders})
   }
 

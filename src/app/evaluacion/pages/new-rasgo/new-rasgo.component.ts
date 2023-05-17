@@ -51,6 +51,13 @@ export class NewRasgoComponent implements OnInit{
     });
   }
 
+  //REGRESAR AQUI PARA PODER OBTENER DE ALGUN MODO EL GRADO Y EL GRUPO PARA QUE CADA VEZ
+  //QUE ESCOJA UNA OPCION SE LE MUESTRA A QUE GRADO Y GRUPO PERTENECE
+  selectV: string = ""
+  datosGradoGrupo(event: any) {
+    console.log("valor"+ event)
+  }
+
   formRasgo: FormGroup = this.formBuilder.group({
     id: ["", Validators.required],
     rasgo: ["", Validators.required],

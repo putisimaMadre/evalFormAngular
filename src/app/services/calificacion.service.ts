@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class CalificacionService {
   urlEndPoint = 'http://127.0.0.1:8000/api/calificacion'
+  urlEndPointConsultarDatos = 'http://127.0.0.1:8000/api/consultarDatos'
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   private _refreshrequired = new Subject<void>();
@@ -22,7 +23,12 @@ export class CalificacionService {
   }
 
   consultarDatos(calificacion: Calificacion): Observable<Calificacion[]>{
-    return this.httpClient.post<Calificacion[]>(this.urlEndPoint, calificacion, {headers: this.httpHeaders})
+    return this.httpClient.post<Calificacion[]>(this.urlEndPointConsultarDatos, calificacion, {headers: this.httpHeaders})
+    
+  }
+
+  saveCalificacion(calificacion: any): Observable<any>{
+    return this.httpClient.post<any>(this.urlEndPoint, calificacion, {headers: this.httpHeaders})
     .pipe(
       tap(()=>{
         this.RequiredRefresh.next();
@@ -30,8 +36,8 @@ export class CalificacionService {
     );
   }
 
-  getCalificacion(id: any): Observable<Calificacion>{
-    return this.httpClient.get<Calificacion>(this.urlEndPoint+'/'+id)
+  getCalificacion(id: number): Observable<any>{
+    return this.httpClient.get<any>(this.urlEndPoint+'/'+id)
   }
 
   updateCalificacion(calificacion: Calificacion): Observable<Calificacion>{

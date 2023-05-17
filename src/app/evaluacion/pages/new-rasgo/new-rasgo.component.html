@@ -8,13 +8,13 @@
         </mat-form-field> -->
         <mat-form-field class="col-5">
         <mat-label>Asignatura</mat-label>
-            <mat-select formControlName="idAsignatura">
+            <mat-select formControlName="idAsignatura" (selectionChange)="datosGradoGrupo($event.value)">
             <mat-option *ngFor="let asignatura of asignaturas" [value]="asignatura.id">
                 {{asignatura.asignatura}}
             </mat-option>
             </mat-select>
         </mat-form-field>
-
+        <p>{{selectV}}</p>
         <mat-form-field class="col-4">
             <mat-label>Rasgo</mat-label>
             <input placeholder="Rasgo" matInput formControlName="rasgo">

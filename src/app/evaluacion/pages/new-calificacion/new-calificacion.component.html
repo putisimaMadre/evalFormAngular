@@ -1,1 +1,20 @@
-<p>new-calificacion works!</p>
+<h1 mat-dialog-title>Calificacion</h1>
+<form [formGroup]="formAsignatura">
+    <div mat-dialog-content>
+      <div class="grid">
+        <mat-form-field class="col-5">
+            <mat-label>Calificacion</mat-label>
+            <input placeholder="Asignatura" matInput formControlName="calificacion">
+        </mat-form-field>
+        <mat-form-field class="col-2">
+            <mat-label>Comentario</mat-label>
+            <input placeholder="grado" matInput formControlName="comentario">
+        </mat-form-field>
+      </div>
+        
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-raised-button color="primary" mat-dialog-close (click)="saveCalificacion()">Calificar</button>
+    </div>
+</form>

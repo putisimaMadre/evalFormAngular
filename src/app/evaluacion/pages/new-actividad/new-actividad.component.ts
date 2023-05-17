@@ -52,11 +52,10 @@ export class NewActividadComponent implements OnInit{
     loadAsignaturas() {
       this.asignaturaService.getAsignaturas().subscribe(result => {
         this.asignaturas = result;
-        console.log(this.asignaturas)
       });
     }
 
-    formActividad: FormGroup = this.formBuilder.group({
+    public formActividad: FormGroup = this.formBuilder.group({
       id: ["", Validators.required],
       idRasgo: ["", Validators.required],
       idAsignatura: ["", Validators.required],
@@ -67,7 +66,6 @@ export class NewActividadComponent implements OnInit{
     LoadEditData(id: any) {
         this.actividadService.getActividad(id).subscribe(item => {
         this.editdata = item;
-        console.log(this.editdata)
         this.formActividad.setValue({
           id: this.editdata.id,
           idRasgo: this.editdata.idRasgo,
@@ -79,21 +77,24 @@ export class NewActividadComponent implements OnInit{
     }
   
     saveActividad(){
-      console.log(this.formActividad.value)
-      this.actividadService.getGradoGrupoTurno(this.formActividad.value).subscribe(res => {
-        console.log(res)
+      this.actividadService.saveActividad(this.formActividad.value).subscribe((idActividad)=>{
+        //===getGradoGrupoTurno===
+        //Esta funcion lo que hace es que guarda en la tabla alumnoActividad el id del alumno y con el id de la actividad
+        console.log(this.formActividad.value)
+        console.log("=======")
+        console.log(idActividad)
+        this.actividadService.getGradoGrupoTurno(idActividad).subscribe(res => {
+          console.log(res)
+        })
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Actividad guardado correctamente',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        this.dialogref.close();
       })
-      // this.alumnoService.getAlumnos
-      // this.actividadService.saveActividad(this.formActividad.value).subscribe(()=>{
-      //       Swal.fire({
-      //         position: 'top-end',
-      //         icon: 'success',
-      //         title: 'Actividad guardado correctamente',
-      //         showConfirmButton: false,
-      //         timer: 2000
-      //       })
-      //       this.dialogref.close();
-      // })
     }
   
     updateActividad(): void{

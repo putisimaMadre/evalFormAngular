@@ -2,7 +2,7 @@
 <form [formGroup]="formConsultaCalificacion">
     <div mat-dialog-content>
       <div class="grid">
-        <mat-form-field class="col-5">
+        <mat-form-field class="col-2">
         <mat-label>Asignatura</mat-label>
             <mat-select formControlName="idAsignatura">
             <mat-option *ngFor="let asignatura of asignaturas" [value]="asignatura.id">
@@ -10,32 +10,32 @@
             </mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field class="col-5">
-          <mat-label>Asignatura</mat-label>
+        <mat-form-field class="col-2">
+          <mat-label>Rasgo</mat-label>
               <mat-select formControlName="idRasgo">
               <mat-option *ngFor="let rasgo of rasgos" [value]="rasgo.id">
                   {{rasgo.rasgo}}
               </mat-option>
               </mat-select>
           </mat-form-field>
-          <mat-form-field class="col-5">
-            <mat-label>Actividades</mat-label>
+          <mat-form-field class="col-3">
+            <mat-label>Actividad</mat-label>
                 <mat-select formControlName="idActividad">
                 <mat-option *ngFor="let actividad of actividades" [value]="actividad.id">
                     {{actividad.actividad}}
                 </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field class="col-5">
-              <mat-label>Asignatura</mat-label>
+            <mat-form-field class="col-2">
+              <mat-label>Grado</mat-label>
                   <mat-select formControlName="grado">
                   <mat-option *ngFor="let grado of alumnos" [value]="grado.grado">
                       {{grado.grado}}
                   </mat-option>
                   </mat-select>
               </mat-form-field>
-              <mat-form-field class="col-5">
-                <mat-label>Asignatura</mat-label>
+              <mat-form-field class="col-2">
+                <mat-label>Grupo</mat-label>
                     <mat-select formControlName="grupo">
                     <mat-option *ngFor="let grupo of alumnos" [value]="grupo.grupo">
                         {{grupo.grupo}}
@@ -46,6 +46,78 @@
         
  
     </div>
-    <button type="submit" mat-raised-button color="primary" (click)="consultarDatos()">Consultar</button>
+    <button type="submit" mat-raised-button color="primary" (click)="loadCalificaciones()">Consultar</button>
 </form>
 
+<!-- TABLA RESULTADO -->
+
+<div class="mat-elevation-z8">
+   
+  <mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput placeholder="Filter" (keyup)="Filterchange($event)">
+
+  </mat-form-field>
+
+<table mat-table matSort [dataSource]="dataSourceCalificaciones" >
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+  <ng-container matColumnDef="id">
+   <th mat-header-cell mat-sort-header *matHeaderCellDef> id </th>
+   <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+ </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="numeroLista">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> No. Lista </th>
+    <td mat-cell *matCellDef="let element"> {{element.numeroLista}} </td>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="apellidoP">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> Apellido Paterno </th>
+    <td mat-cell *matCellDef="let element"> {{element.apellidoP}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="apellidoM">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef> Apellido Materno </th>
+    <td mat-cell *matCellDef="let element"> {{element.apellidoM}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="nombres">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef> Nombres </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="nombreActividad">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef> Actividad a Calificar </th>
+    <td mat-cell *matCellDef="let element"> {{element.actividad}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="calificacion">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef> Calificacion </th>
+    <td mat-cell *matCellDef="let element"> {{element.calificacion}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let element"> <button (click)="asignarCalificacion([element.id, element.idActividad])" mat-raised-button color="primary" >Calificar</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr (click)="getrow(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
+
+</mat-paginator>
+
+</div>

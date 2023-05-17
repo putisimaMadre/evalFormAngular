@@ -21,9 +21,8 @@ export class CalificacionService {
     return this.httpClient.get<Calificacion[]>(this.urlEndPoint)
   }
 
-  saveCalificacion(asignatura: Calificacion): Observable<Calificacion>{
-    console.log(asignatura)
-    return this.httpClient.post<Calificacion>(this.urlEndPoint, asignatura, {headers: this.httpHeaders})
+  consultarDatos(calificacion: Calificacion): Observable<Calificacion[]>{
+    return this.httpClient.post<Calificacion[]>(this.urlEndPoint, calificacion, {headers: this.httpHeaders})
     .pipe(
       tap(()=>{
         this.RequiredRefresh.next();

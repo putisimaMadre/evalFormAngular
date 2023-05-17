@@ -9,6 +9,7 @@ import { AsignaturaService } from 'src/app/services/asignatura.service';
 import { Asignatura } from 'src/app/models/asignatura';
 import { Actividad } from 'src/app/models/actividad';
 import { Rasgo } from 'src/app/models/rasgo';
+import { AlumnoService } from 'src/app/services/alumno.service';
 
 @Component({
   selector: 'app-new-actividad',
@@ -29,6 +30,7 @@ export class NewActividadComponent implements OnInit{
      private asignaturaService: AsignaturaService,
      private formBuilder: FormBuilder,
      private actividadService: ActividadService,
+     private alumnoService: AlumnoService,
      public dialogref: MatDialogRef<NewActividadComponent>,
      @Inject(MAT_DIALOG_DATA) public actividad:any){}
 
@@ -78,16 +80,20 @@ export class NewActividadComponent implements OnInit{
   
     saveActividad(){
       console.log(this.formActividad.value)
-      this.actividadService.saveActividad(this.formActividad.value).subscribe(()=>{
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Actividad guardado correctamente',
-              showConfirmButton: false,
-              timer: 2000
-            })
-            this.dialogref.close();
+      this.actividadService.getGradoGrupoTurno(this.formActividad.value).subscribe(res => {
+        console.log(res)
       })
+      // this.alumnoService.getAlumnos
+      // this.actividadService.saveActividad(this.formActividad.value).subscribe(()=>{
+      //       Swal.fire({
+      //         position: 'top-end',
+      //         icon: 'success',
+      //         title: 'Actividad guardado correctamente',
+      //         showConfirmButton: false,
+      //         timer: 2000
+      //       })
+      //       this.dialogref.close();
+      // })
     }
   
     updateActividad(): void{

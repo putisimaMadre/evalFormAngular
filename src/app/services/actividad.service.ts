@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Actividad } from '../models/actividad';
+import { Alumno } from '../models/alumno';
+import { Asignatura } from '../models/asignatura';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActividadService {
   urlEndPoint = 'http://127.0.0.1:8000/api/actividad'
+  //le falta el turno
+  urlEndPointGradoGrupoTurno = 'http://127.0.0.1:8000/api/busquedaGradoGrupoTurno'
+
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   private _refreshrequired = new Subject<void>();
@@ -19,6 +24,10 @@ export class ActividadService {
 
   getActividades(): Observable<Actividad[]>{
     return this.httpClient.get<Actividad[]>(this.urlEndPoint)
+  }
+
+  getGradoGrupoTurno(actividad: Actividad): Observable<Alumno[]>{
+    return this.httpClient.post<Alumno[]>(this.urlEndPointGradoGrupoTurno, actividad, {headers: this.httpHeaders})
   }
 
   saveActividad(actividad: Actividad): Observable<Actividad>{

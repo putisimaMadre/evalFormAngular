@@ -4,5 +4,10 @@ export interface Calificacion {
     "grupo": string,
     "asignatura": string,
     "rasgo": string,
-    "actividad": string
+    "actividad": string,
+    "nombres": string,
+    "apellidoP": string,
+    "apellidoM": string
+    "idActividad": number,
+    "numeroLista": number
 }

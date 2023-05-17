@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RasgoService } from 'src/app/services/rasgo.service';
 import { Rasgo } from 'src/app/models/rasgo';
@@ -9,6 +9,12 @@ import { ActividadService } from 'src/app/services/actividad.service';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { CalificacionService } from 'src/app/services/calificacion.service';
 import { Asignatura } from 'src/app/models/asignatura';
+import { Calificacion } from 'src/app/models/calificacion';
+import { NewCalificacionComponent } from 'src/app/evaluacion/pages/new-calificacion/new-calificacion.component'
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-calificacion',
@@ -17,10 +23,17 @@ import { Asignatura } from 'src/app/models/asignatura';
 })
 export class CalificacionComponent implements OnInit{
 
+  displayedColumns: string[] = ['id', 'numeroLista', 'apellidoP', 'apellidoM', 'nombres', 'calificacion', 'nombreActividad', 'action'];
+  dataSourceCalificaciones: any;
+
   asignaturas?: Asignatura[];
   actividades?: Actividad[];
   rasgos?: Rasgo[];
   alumnos?: Alumno[];
+  calificaciones?: Calificacion[]
+
+  @ViewChild(MatPaginator) paginator !: MatPaginator;
+  @ViewChild(MatSort) sort !: MatSort;
 
   constructor(
     private rasgoService: RasgoService,
@@ -28,7 +41,8 @@ export class CalificacionComponent implements OnInit{
     private asignaturaService: AsignaturaService,
     private alumnoService: AlumnoService,
     private calificacionService: CalificacionService,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog 
     ) {}
 
   ngOnInit(): void {
@@ -62,6 +76,15 @@ export class CalificacionComponent implements OnInit{
     });
   }
 
+  loadCalificaciones(){
+    this.calificacionService.consultarDatos(this.formConsultaCalificacion.value).subscribe(result => {
+      this.calificaciones = result;
+      this.dataSourceCalificaciones = new MatTableDataSource<Calificacion>(this.calificaciones)
+      this.dataSourceCalificaciones.paginator = this.paginator;
+      this.dataSourceCalificaciones.sort = this.sort;
+    });
+  }
+
   formConsultaCalificacion: FormGroup = this.formBuilder.group({
     id: ["", Validators.required],
     idAsignatura: ["", Validators.required],
@@ -72,8 +95,32 @@ export class CalificacionComponent implements OnInit{
     status: [1, Validators.required],
   })
 
-  consultarDatos(){
-    console.log(this.formConsultaCalificacion.value)    
+  // consultarDatos(){
+  //   this.calificacionService.consultarDatos(this.formConsultaCalificacion.value).subscribe(cal => this.calificaciones = cal)
+  // }
+
+  Filterchange(event: Event) {
+    const filvalue = (event.target as HTMLInputElement).value;
+    this.dataSourceCalificaciones.filter = filvalue;
+  }
+
+  getrow(row: any) {
+  }
+
+  asignarCalificacion(alumno: any) {
+    this.OpenDialog('1000ms','600ms', alumno)
+  }
+
+  OpenDialog(enteranimation: any, exitanimation: any, code:any) {
+    console.log(code)
+    this.dialog.open(NewCalificacionComponent, {
+      enterAnimationDuration: enteranimation,
+      exitAnimationDuration: exitanimation,
+      width: "50%",
+      data:{
+        empcode:code
+      }
+    })
   }
 
 }

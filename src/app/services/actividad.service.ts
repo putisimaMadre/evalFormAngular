@@ -12,8 +12,8 @@ export class ActividadService {
   //urlEndPoint = 'http://127.0.0.1:8000/api/actividad'
   urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/actividad'
   //le falta el turno
-  //urlEndPointGradoGrupoTurno = 'http://127.0.0.1:8000/api/busquedaGradoGrupoTurno'
-  urlEndPointGradoGrupoTurno = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/busquedaGradoGrupoTurno'
+  urlEndPointGradoGrupoTurno = 'http://127.0.0.1:8000/api/busquedaGradoGrupoTurno'
+  //urlEndPointGradoGrupoTurno = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/busquedaGradoGrupoTurno'
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   private _refreshrequired = new Subject<void>();

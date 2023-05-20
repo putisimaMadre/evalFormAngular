@@ -23,6 +23,9 @@ export class NewActividadComponent implements OnInit{
   rasgos?: Rasgo[];
   editdata: any;
   id: any;
+  idAsignatura: any
+  grado?: string;
+  grupo?: string;
 
   constructor(
     private router:Router,
@@ -35,7 +38,6 @@ export class NewActividadComponent implements OnInit{
      @Inject(MAT_DIALOG_DATA) public actividad:any){}
 
      ngOnInit(): void {
-      this.loadRasgos();
       this.loadAsignaturas()
         if(this.actividad.empcode!=null && this.actividad.empcode!=''){
         this.LoadEditData(this.actividad.empcode);
@@ -43,9 +45,11 @@ export class NewActividadComponent implements OnInit{
       }
     }
   
-    loadRasgos() {
-      this.rasgoService.getRasgos().subscribe(result => {
+    loadRasgos(id: number) {
+      this.rasgoService.getRasgoXAsignatura(id).subscribe(result => {
         this.rasgos = result;
+        //this.grado = result.grado
+        console.log(result[0])
       });
     }
   
@@ -80,11 +84,11 @@ export class NewActividadComponent implements OnInit{
       this.actividadService.saveActividad(this.formActividad.value).subscribe((idActividad)=>{
         //===getGradoGrupoTurno===
         //Esta funcion lo que hace es que guarda en la tabla alumnoActividad el id del alumno y con el id de la actividad
-        console.log(this.formActividad.value)
-        console.log("=======")
-        console.log(idActividad)
+        // console.log(this.formActividad.value)
+        // console.log("=======")
+        // console.log(idActividad)
         this.actividadService.getGradoGrupoTurno(idActividad).subscribe(res => {
-          console.log(res)
+          // console.log(res)
         })
         Swal.fire({
           position: 'top-end',
@@ -109,6 +113,10 @@ export class NewActividadComponent implements OnInit{
         this.dialogref.close();
         this.router.navigate(['/evaluacion'])
       })
+    }
+
+    getIdAsignatura(event: any){
+      this.loadRasgos(event)
     }
 
 }

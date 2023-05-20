@@ -8,12 +8,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class RasgoService {
-  //urlEndPoint = 'http://127.0.0.1:8000/api/rasgo'
-  //urlEndPointResumen = 'http://127.0.0.1:8000/api/rasgoResumen'
-  //urlEndPointGrafico = 'http://127.0.0.1:8000/api/getGrafico'
-  urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/rasgo'
-  urlEndPointResumen = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/rasgoResumen'
-  urlEndPointGrafico = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/getGrafico'
+  urlEndPoint = 'http://127.0.0.1:8000/api/rasgo'
+  urlEndPointResumen = 'http://127.0.0.1:8000/api/rasgoResumen'
+  urlEndPointGrafico = 'http://127.0.0.1:8000/api/getGrafico'
+  urlEndPointgetRasgoXAsignatura = 'http://127.0.0.1:8000/api/getRasgoXAsignatura'
+  //urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/rasgo'
+  //urlEndPointResumen = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/rasgoResumen'
+  //urlEndPointGrafico = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/getGrafico'
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   private _refreshrequired = new Subject<void>();
@@ -25,6 +26,10 @@ export class RasgoService {
 
   getRasgos(): Observable<Rasgo[]>{
     return this.httpClient.get<Rasgo[]>(this.urlEndPoint)
+  }
+
+  getRasgoXAsignatura(id: number): Observable<Rasgo[]>{
+    return this.httpClient.post<Rasgo[]>(this.urlEndPointgetRasgoXAsignatura, id, {headers: this.httpHeaders})
   }
 
   getResumen(rasgo: Rasgo): Observable<Rasgo>{

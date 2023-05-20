@@ -7,10 +7,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CalificacionService {
-  //urlEndPoint = 'http://127.0.0.1:8000/api/calificacion'
-  //urlEndPointConsultarDatos = 'http://127.0.0.1:8000/api/consultarDatos'
-  urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/calificacion'
-  urlEndPointConsultarDatos = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/consultarDatos'
+  urlEndPoint = 'http://127.0.0.1:8000/api/calificacion'
+  urlEndPointConsultarDatos = 'http://127.0.0.1:8000/api/consultarDatos'
+  //urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/calificacion'
+  //urlEndPointConsultarDatos = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/consultarDatos'
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   private _refreshrequired = new Subject<void>();

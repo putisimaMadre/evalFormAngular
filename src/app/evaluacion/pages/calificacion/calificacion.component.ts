@@ -23,14 +23,16 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CalificacionComponent implements OnInit{
 
-  displayedColumns: string[] = ['id', 'numeroLista', 'apellidoP', 'apellidoM', 'nombres', 'calificacion', 'nombreActividad', 'action'];
+  displayedColumns: string[] = ['id', 'numeroLista', 'apellidoP', 'apellidoM', 'nombres', 'calificacion', 'nombreActividad', 'comentarios', 'action'];
   dataSourceCalificaciones: any;
 
   asignaturas?: Asignatura[];
   actividades?: Actividad[];
   rasgos?: Rasgo[];
   alumnos?: Alumno[];
-  calificaciones?: Calificacion[]
+  calificaciones?: Calificacion[];
+  grado?: string;
+  grupo?: string;
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
@@ -46,19 +48,19 @@ export class CalificacionComponent implements OnInit{
     ) {}
 
   ngOnInit(): void {
-    this.loadRasgos();
     this.loadAsignaturas()
-    this.loadAlumnos()
-    this.loadActividades()
     this.loadCalificaciones();
     this.calificacionService.RequiredRefresh.subscribe(r => {
       this.loadCalificaciones();
     });
   }
 
-  loadRasgos() {
-    this.rasgoService.getRasgos().subscribe(result => {
+  loadRasgos(id: number) {
+    this.rasgoService.getRasgoXAsignatura(id).subscribe(result => {
       this.rasgos = result;
+      var first = result.slice(0, 1).shift();
+      this.grado = first.grado
+      this.grupo = first.grupo
     });
   }
 
@@ -68,9 +70,10 @@ export class CalificacionComponent implements OnInit{
     });
   }
 
-  loadActividades() {
-    this.actividadService.getActividades().subscribe(result => {
+  loadActividades(id: number) {
+    this.actividadService.getActividadesXRasgo(id).subscribe(result => {
       this.actividades = result;
+      this.alumnos = result
     });
   }
 
@@ -122,6 +125,15 @@ export class CalificacionComponent implements OnInit{
         empcode:code
       }
     })
+  }
+
+  getIdAsignatura(event: any){
+    this.loadRasgos(event)
+  }
+
+  getIdRasgo(event: any){
+    this.loadActividades(event)
+    console.log(event)
   }
 
 }

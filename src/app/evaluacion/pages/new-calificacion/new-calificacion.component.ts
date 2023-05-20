@@ -22,21 +22,22 @@ export class NewCalificacionComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-      if(this.asignatura.empcode[0]!=null && this.asignatura.empcode[0]!=''){
-      //this.LoadEditData(this.asignatura.empcode[0]);
+      if(this.asignatura.empcode!=null && this.asignatura.empcode!=''){
+      this.LoadEditData(this.asignatura.empcode);
       // console.log(this.asignatura.empcode[0])
     }
   }
   desdata: any;
   editdata: any;
 
-  LoadEditData(id: any) {
-    this.calificacionService.getCalificacion(id).subscribe(item => {
+  LoadEditData(idArray: any) {
+    console.log(idArray)
+    this.calificacionService.getCalificacion(idArray).subscribe(item => {
     this.editdata = item;
-    console.log(this.editdata)
-    this.formAsignatura.setValue({
-      calificacion: this.editdata.calificacion,
-      comentario: this.editdata.comentario, 
+    this.formAsignatura.patchValue({
+      id: this.editdata.id,
+      calificacion: this.editdata[0].calificacion,
+      comentario: this.editdata[0].comentario, 
       status: this.editdata.status
     })
   });

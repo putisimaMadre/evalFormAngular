@@ -49,7 +49,10 @@ export class NewActividadComponent implements OnInit{
       this.rasgoService.getRasgoXAsignatura(id).subscribe(result => {
         this.rasgos = result;
         //this.grado = result.grado
-        console.log(result[0])
+        var first = result.slice(0, 1).shift();
+        this.grado = first.grado
+        this.grupo = first.grupo
+        console.log(result)
       });
     }
   

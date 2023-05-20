@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class CalificacionService {
   urlEndPoint = 'http://127.0.0.1:8000/api/calificacion'
   urlEndPointConsultarDatos = 'http://127.0.0.1:8000/api/consultarDatos'
+  urlEndPointconsultarCalificacion = 'http://127.0.0.1:8000/api/consultarCalificacion'
   //urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/calificacion'
   //urlEndPointConsultarDatos = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/consultarDatos'
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
@@ -38,8 +39,8 @@ export class CalificacionService {
     );
   }
 
-  getCalificacion(id: number): Observable<any>{
-    return this.httpClient.get<any>(this.urlEndPoint+'/'+id)
+  getCalificacion(idArray: number): Observable<any>{
+    return this.httpClient.post<any>(this.urlEndPointconsultarCalificacion, idArray, {headers: this.httpHeaders})
   }
 
   updateCalificacion(calificacion: Calificacion): Observable<Calificacion>{

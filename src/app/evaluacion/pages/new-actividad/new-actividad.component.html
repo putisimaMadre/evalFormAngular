@@ -1,12 +1,9 @@
 <h1 mat-dialog-title>Nueva Actividad</h1>
-<span>Del grado</span>{{grado}}
+<h5>Del Grado: <b>{{grado}}</b></h5>
+<h5>Del Grupo: <b>{{grupo}}</b></h5>
 <form [formGroup]="formActividad">
     <div mat-dialog-content>
       <div class="grid">
-        <!-- <mat-form-field class="col-2">
-            <mat-label>Asignatura</mat-label>
-            <input placeholder="Asignatura" matInput formControlName="asignatura">
-        </mat-form-field> -->
         <mat-form-field class="col-4">
         <mat-label>Asignatura</mat-label>
             <mat-select formControlName="idAsignatura" (selectionChange)="getIdAsignatura($event.value)">
@@ -18,7 +15,6 @@
 
         <mat-form-field class="col-4">
             <mat-label>Rasgo</mat-label>
-                <!-- <mat-select formControlName="idRasgo" (selectionChange)="loadRasgos(id)"> -->
                   <mat-select formControlName="idRasgo">
                 <mat-option *ngFor="let rasgo of rasgos" [value]="rasgo.id">
                     {{rasgo.rasgo}}

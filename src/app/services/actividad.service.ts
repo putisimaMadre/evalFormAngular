@@ -9,8 +9,9 @@ import { Asignatura } from '../models/asignatura';
   providedIn: 'root'
 })
 export class ActividadService {
-  //urlEndPoint = 'http://127.0.0.1:8000/api/actividad'
-  urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/actividad'
+  urlEndPoint = 'http://127.0.0.1:8000/api/actividad'
+  urlEndPointActividadesXRasgo = 'http://127.0.0.1:8000/api/getActividadesXRasgo'
+  //urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/actividad'
   //le falta el turno
   urlEndPointGradoGrupoTurno = 'http://127.0.0.1:8000/api/busquedaGradoGrupoTurno'
   //urlEndPointGradoGrupoTurno = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/busquedaGradoGrupoTurno'
@@ -25,6 +26,10 @@ export class ActividadService {
 
   getActividades(): Observable<Actividad[]>{
     return this.httpClient.get<Actividad[]>(this.urlEndPoint)
+  }
+
+  getActividadesXRasgo(id: number): Observable<any[]>{
+    return this.httpClient.post<any[]>(this.urlEndPointActividadesXRasgo, id, {headers: this.httpHeaders})
   }
 
   getGradoGrupoTurno(actividad: any): Observable<Alumno[]>{

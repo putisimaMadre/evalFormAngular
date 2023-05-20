@@ -54,6 +54,7 @@ export class NewAComponent implements OnInit{
   LoadEditData(id: any) {
       this.alumnoService.getAlumno(id).subscribe(item => {
       this.editdata = item;
+      console.log(this.editdata)
       this.formAlumno.setValue({
         id: this.editdata.id,
         numeroLista: this.editdata.numeroLista,

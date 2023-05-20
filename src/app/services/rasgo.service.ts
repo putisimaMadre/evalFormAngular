@@ -28,8 +28,8 @@ export class RasgoService {
     return this.httpClient.get<Rasgo[]>(this.urlEndPoint)
   }
 
-  getRasgoXAsignatura(id: number): Observable<Rasgo[]>{
-    return this.httpClient.post<Rasgo[]>(this.urlEndPointgetRasgoXAsignatura, id, {headers: this.httpHeaders})
+  getRasgoXAsignatura(id: number): Observable<any[]>{
+    return this.httpClient.post<any[]>(this.urlEndPointgetRasgoXAsignatura, id, {headers: this.httpHeaders})
   }
 
   getResumen(rasgo: Rasgo): Observable<Rasgo>{

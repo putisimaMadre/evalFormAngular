@@ -7,7 +7,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AsignaturaService {
-  urlEndPoint = 'http://127.0.0.1:8000/api/asignatura'
+  //urlEndPoint = 'http://127.0.0.1:8000/api/asignatura'
+  urlEndPoint = 'http://sistemas-integrales-fw.com/evaluacionFormativa/public/api/asignatura'
+  
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   private _refreshrequired = new Subject<void>();

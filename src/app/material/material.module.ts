@@ -21,6 +21,7 @@ import { MatTableModule } from "@angular/material/table"
 import { MatRadioModule } from "@angular/material/radio"
 import { MatCheckboxModule } from "@angular/material/checkbox"
 import { NgChartsModule } from 'ng2-charts';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -47,7 +48,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatSortModule,
     MatRadioModule,
     MatCheckboxModule,
-    NgChartsModule
+    NgChartsModule,
+    MatMenuModule
   ]
   
 })

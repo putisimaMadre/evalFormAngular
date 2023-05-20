@@ -1,0 +1,19 @@
+<mat-toolbar>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/alumnos']">
+          <mat-icon>accessibility</mat-icon>alumnos
+        </button>
+        <button mat-menu-item [routerLink]="['/evaluacion']">
+            <mat-icon>build</mat-icon>Admin Evaluacion
+        </button>
+        <button mat-menu-item [routerLink]="['/calificacion']">
+            <mat-icon>done_outline</mat-icon>Calificaciones
+        </button>
+        <button mat-menu-item [routerLink]="['/construccion']">
+            <mat-icon>fingerprint</mat-icon>Asistencia
+        </button>
+      </mat-menu>
+  </mat-toolbar>
